@@ -16,29 +16,29 @@ def parse_image(image: str):
 
     # Converting image to a binary image
     # ( black and white only image).
-    _, threshold = cv2.threshold(img, 200, 355, cv2.THRESH_BINARY)
+    _, threshold = cv2.threshold(img, 200, 455, cv2.THRESH_BINARY)
 
     # Detecting contours in image.
     # contours, _ = cv2.findContours(threshold, cv2.RETR_TREE,
     #                                cv2.CHAIN_APPROX_SIMPLE)
-    contours, hierarchy = cv2.findContours(threshold, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    contours, hierarchy = cv2.findContours(threshold, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # Going through every contours found in the image.
     for cnt in contours:
 
-        approx = cv2.approxPolyDP(cnt, 0.011 * cv2.arcLength(cnt, True), True)
+        approx = cv2.approxPolyDP(cnt, 0.020 * cv2.arcLength(cnt, True), True)
 
         # draws boundary of contours.
         # cv2.drawContours(img2, 0, (0, 0, 255), 5)
         # cv2.drawContours(img2, contours, -1, (10, 355, 100), 3)
-        cv2.drawContours(img2, contours, 0, (0, 0, 255), 5)
+        cv2.drawContours(img2, contours, 0, (0,255, 0), 3)
 
         # Used to flatten the array containing
         # the co-ordinates of the vertices.
         values = approx.ravel()
         i = 0
 
-        for value in values:
+        for _ in values:
             if i % 2 == 0:
                 x = values[i]
                 y = values[i + 1]
